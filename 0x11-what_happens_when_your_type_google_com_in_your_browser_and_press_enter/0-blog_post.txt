@@ -1,67 +1,72 @@
-To answer this question in a simple and detailed manner, lets take a look at this word called server, which we would use alot in this article
+What happens when your type google.com in your browser and press enter?
+Here's what happens when you type https://www.google.com in your browser and press Enter:
+When you type a website address like https://www.google.com into your browser and hit Enter, a series of events take place behind the scenes to bring up the website on your screen. Let's take a look at each of these steps in detail:
 
-What’s a Server?
-A server is a computer program or device that provides a service to another computer program and its user, also known as the client. This architecture is called the client–server model.
+DNS request:
 
-The client-server model
-The client is typically the ‘thing’ requesting information . Typically clients are the web user’s internet-connected devices, such our computer, laptop or phone connected to Wi-Fi or mobile network — and web-accessing software available on those devices or browser like Google Chrome, Firefox, Safari. In our example, the client is in fact the browser and the device we are using to type in www.google.com
+The first step is to resolve the domain name to its corresponding IP address. Your browser sends a Domain Name System (DNS) request to your internet service provider's (ISP) DNS servers, which in turn send a request to the root DNS server. The root DNS server then directs the request to the top-level domain (TLD) server, which manages all domain names that end with the same TLD (in this case, ".com"). The TLD server then forwards the request to the domain's authoritative DNS server, which response with the IP address of the web server hosting the website.
 
-Server is the ‘thing’ sending or serving information to the client. They store webpages, sites, or apps. In our example, it would be the google server.
+TCP/IP:
 
-When a client device wants to access a webpage, it requests a copy of the webpage from the server which is then downloaded onto the client to be displayed in the user’s web browser.
+Next, your browser opens a Transmission Control Protocol (TCP) connection with the web server at the IP address received from the DNS lookup. TCP ensures reliable transmission of data by breaking it down into small packets and reassembling them at the destination. The Internet Protocol (IP) is used to route these packets across the internet.
 
-The Phonebook of the Internet
-When we type the website name or address — or more technically called a URL, https://www.google.com into our browser and press Enter, the first thing the browser does is to break down the URL in pieces — and for that we need Domain Name System (DNS) servers! But first…
+Firewall:
 
-What’s a URL?
-URL stands for Uniform Resource Locator and is used to access a website. There are several parts in a URL: the protocol, hostname, port and path-and-file-name and more. For this blog post, we will look at the protocol and hostname. In the case of https://www.google.com: https is the protocol (more on that later) and www.google.com is the hostname, which can be a domain like in this case or also an IP address.
+If you are accessing the website from a corporate network or behind a firewall, the firewall will check the packets to ensure they are not a security threat before allowing them to pass through.
 
-DNS
-Think of the Domain Name System (DNS) like the phonebook of the internet! DNS servers are application servers that convert domain names, easily understood by humans, into machine-readable IP addresses. Each device connected to the internet has a unique IP address which other machines use to find the device. 
+HTTPS/SSL:
 
-This process called DNS resolution or DNS lookup has 4 steps (and servers) involved in loading a webpage:
+If the website you are accessing is secured with HTTPS (Hypertext Transfer Protocol Secure), the web server will send an SSL (Secure Sockets Layer) certificate to your browser to verify its identity. This certificate includes a public key that your browser uses to encrypt data before sending it to the server. This ensures that any data sent between your browser and the server is secure and cannot be intercepted by a third party.
 
-DNS recursor is is the first stop. It’s a server designed to receive queries from clients through applications such as web browsers. If this server already has the IP address stored in cache it will simply return it back. Otherwise it’ll be responsible for making additional requests, by sending a query to the root DNS server.
-The root server or root nameserver doesn’t have information about the hostname but it has information where to find it so it will refer the requests to the appropriate TLD server.
-The TLD ( Top Level Domain) is the next step in the search for a specific IP address, and it hosts the last portion of a hostname. In google.com, the TLD server is “com”. The request is then sent to the authoritative nameserver.
-The Authoritative nameserver is the last stop in the nameserver query. If this server has access to the requested record, it will return the IP address for the requested hostname back to the DNS recursor that made the initial request — otherwise it will send an error saying the record couldn’t be found.
+Load-balancer:
 
-Internet Protocol Suite
-Finally the browser knows where to find www.google.com and it’s now time to make a connection, to access the website requested. Browsers use internet protocols to build such connections.
+If the website is hosted on multiple servers, a load-balancer may be used to distribute incoming requests evenly among them to improve performance and ensure availability.
 
-Internet Protocol Suite aka TCP/IP (TCP stand for Transmission Control Protocol) is the most common protocol used for many types of HTTP requests. It’s a set of rules governing the format of data sent via the internet or local network, such as sending e-mails, streaming videos, or connecting to a website.
+Web server:
 
-Traffic and Security Control
-Once the TCP connection is established, it is time to begin transferring data! But not so fast, first we need some traffic control — meet the load balancer…
+Once the TCP connection is established and any security measures have been taken care of, the web server receives the request from your browser and sends back the webpage content.
 
-A load balancer, like HAProxy, is a server that helps handle more web traffic and avoid downtime. The load balancer receives traffic from the internet and then distribute it among multiple servers as to not overload any particular server with too many requests. Load balancers are essential for websites with a lot of traffic such google.com! But can anyone get in? That's the job of a firewall…
+Application server:
 
-The firewall, a software or hardware device that blocks unauthorised access to or from private networks. It acts as a barrier between secured internal network and most vulnerable network, e.g. the internet. The decision to whether to allow the traffic or not is based on a custom set of security rules, such as restrictions on the IP address of the request, the number and frequency of the requests made, or the type of content being requested. A load balancer acts as firewall. However you can install seperate firewalls for extra security and protection and to avoid SPOF (single point of failure).
+If the website is dynamic and requires data to be generated on-the-fly, an application server may be used to process the request and send back the appropriate content. This could involve accessing a database or other backend services.
 
-SSL
-Security is key in nowadays digital world so we have an extra security measure taken using Secure Socket Layer (SSL).
+Database:
 
-SSL is a protocol for servers and web browsers that makes sure that data passed between the two are private. This is done using a SSL certificate, a small data files that cryptographically establish an encrypted link between a web server and a browser. This link ensures that all data passed between the web server and browser remain private. 
+If the website relies on data stored in a database, the application server will retrieve this data and use it to generate the content that is sent back to your browser.
 
-SSL is particularly useful when exchanging credit card information or other private sensitive information as it makes it impossible to decipher them if someone was listening in.
+Understanding how the internet works can be an intimidating task, but it's important to have some knowledge about the basics of the infrastructure that connects us to the digital world. One fundamental aspect of the Internet is the server-client architecture, which is used to provide services to internet-connected devices.
 
-How do you know if a website is using a SSL certificate? Easy, just look at the url and if you see that padlock and https:// instead of instead of http, then your privacy is safe. But what’s http/https?
+A server is a computer program or device that provides a service to another computer program and its user, known as the client. The client is typically the device requesting information, such as a web user's computer, laptop, or phone connected to Wi-Fi or mobile networks, and web-accessing software like Google Chrome, Firefox, or Safari.
 
-HTTP/HTTPS
-What is it?
-HTTP stands for HyperText Transfer Protocol and is perhaps the most popular application protocol used by the World Wide Web. It’s used by we browser and web server to communicate. It is a stateless, text-base protocol.
+Servers store webpages, sites, or apps and send or serve information to the client. When a client device wants to access a webpage, it requests a copy of the webpage from the server, which is then downloaded onto the client to be displayed in the user's web browser.
 
-It works like this: an HTTP client or web browser sends a request message to an HTTP server or web server. The server, in turn, returns a response message. Note that HTTP is a pull protocol, the client pulls information from the server rather than the server pushes information to the client.
+To access a website, users type the website name or address, technically called a URL, into their browser, and press enter. The first thing the browser does is to break down the URL into pieces, which requires the help of Domain Name System (DNS) servers. DNS servers are application servers that convert domain names, easily understood by humans, into machine-readable IP addresses.
 
-HTTPS works the same as HTTP , it’s only more secure. The additional letter, S, stands for security, and, as mentioned earlier, it means it’s using a SSL certificate.
+Each device connected to the internet has a unique IP address that other machines use to find it. This process, called DNS resolution or DNS lookup, has four steps and servers involved in loading a webpage.
 
-HTTP requests and response status code
-HTTP requests can have a range of different methods.
+The DNS recursor is the first stop, a server designed to receive queries from clients through applications such as web browsers. If this server already has the IP address stored in a cache, it will return it back. Otherwise, it will be responsible for making additional requests by sending a query to the root DNS server.
 
-GET is used to get data from a web server.
-POST is used to send data from a web server.
-PUT is used to update data from a web server
-DELETE is used to delete data from a web server
+The root server, or root nameserver, doesn't have information about the hostname, but it has information on where to find it. Therefore, it will refer the requests to the appropriate Top-Level Domain (TLD) server. The TLD is the next step in the search for a specific IP address and hosts the last portion of a hostname. For example, in google.com, the TLD server is "com." The request is then sent to the authoritative nameserver.
+
+The authoritative nameserver is the last stop in the nameserver query. If this server has access to the requested record, it will return the IP address for the requested hostname back to the DNS recursor that made the initial request. Otherwise, it will send an error saying the record couldn't be found.
+
+Once the browser knows where to find the website, it's time to make a connection to access the requested webpage. Browsers use internet protocols to build such connections, the most common being the Internet Protocol Suite or TCP/IP. This set of rules governs the format of data sent via the internet or local network, such as sending e-mails, streaming videos, or connecting to a website.
+
+When the TCP connection is established, it's time to transfer data. However, to avoid overloading any particular server with too many requests, a load balancer, like HAProxy, is used. The load balancer receives traffic from the internet and distributes it among multiple servers.
+
+Security is key in today's digital world, so an extra security measure is taken using Secure Socket Layer (SSL). SSL is a protocol for servers and web browsers that ensures data passed between the two is private. This is done using an SSL certificate, a small data file that cryptographically establishes an encrypted link between a web server and a browser. This link ensures that all data passed between the web server and browser remains private.
+
+HTTP (Hypertext Transfer Protocol) is the protocol used for transferring data over the web. It is an application-layer protocol that is built on top of TCP/IP, and it defines the format of messages that are sent between web browsers and web servers.
+
+HTTP defines a set of request methods, or verbs, that are used to communicate the action that should be performed on the specified resource. The most common HTTP methods are:
+
+GET: Requests a representation of the specified resource. This is the method used for retrieving web pages and other resources from a web server.
+POST: Submits an entity to the specified resource, often causing a change in state or side effects on the server.
+PUT: Replace the specified resource with the entity provided in the request.
+DELETE: Deletes the specified resource.
+HEAD: Asks for a response identical to a GET request but without the response body.
+OPTIONS: Describe the communication options for the target resource.
+TRACE: Performs a message loop-back test along the path to the target resource.
 An HTTP request will always return a response, at least with the status code indicating if the request has been successful or not. Some of the most popular status codes are:
 
 Informational responses (100–199)
@@ -69,16 +74,6 @@ Successful responses (200–299)
 Redirection messages (300–399)
 Client error responses (400–499)
 Server error responses (500–599)
-Web and Application Servers
-A web server is computer software and underlying hardware that accepts requests via HTTP/HTTPS and serves static content, like simple HTML pages, images or plain text files, in other words content that doesn’t change. It’s the web server job to find content corresponding to the website address requested, and to serve it as an HTTP/HTTPS response. Examples of web servers are Nginx or Apache.
+In conclusion, the Internet is a complex system that consists of various elements, and servers are one of the key components that enable the Internet to function. When you type a website address into your browser, a complex series of events take place behind the scenes to bring up the website on your screen. Understanding these steps can help you troubleshoot issues and optimize website performance.
 
-However most of sites don’t only have static content. Quite the opposite most web apps depend on dynamic content, content that changes. That means, for example, it’s possible to interact with the website, save information into it, log in with a user name and a password and so on. For this, we need the application server!
-
-An application server is a software program responsible for operating applications, communicate with database server, manage user information, and more. It works with the web servers and is able to serve a dynamic application using the static content from the web server.
-
-Database
-Another crucial component in the client-server computing environment is the database server, which consists of hardware and software that run a database. A database is a collection of data, and the database server is the program that interacts with the database and retrieve, add, modify data in it. The two main ones are relational databases, and non-relational databases. PostgreSQL, MySQL, SQLite, MariaDB are some the most popular relational databases.
-
-Conclusion
-All of this steps, sending and recieving data and responses happens in a very short time, even before we notice. But anytime we type www.google.com, all this steps must happen. I hope this article helps you get a better understanding of the processes involved when we type www.google.com.
-
+#alxafrica #fullstack #articlewriting #google #alxsystemengineeringdevops #blogpost 
